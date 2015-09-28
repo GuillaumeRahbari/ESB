@@ -20,7 +20,6 @@
     </properties>
 
     <dependencies>
-        <!-- JUnit for unit tests purpose -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -43,17 +42,6 @@
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20141113</version>
-        </dependency>
-        <!-- CXF HTTP/SOAP implementation -->
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-frontend-jaxws</artifactId>
-            <version>${cxf.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-transports-http</artifactId>
-            <version>${cxf.version}</version>
         </dependency>
     </dependencies>
     <build>
