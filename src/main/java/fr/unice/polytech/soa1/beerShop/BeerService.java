@@ -20,10 +20,11 @@ public class BeerService {
 
     @GET
     public Response getAvailableGenerators() {
-        Collection<String> gens = new ArrayList<String>(){{
+        Collection<String> gens = new ArrayList<String>(){
+            {
             this.add("Leffe");
             this.add("Rebook");
-        }
+            }
         };
         JSONArray result = new JSONArray();
         for(String g: gens) {
