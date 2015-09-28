@@ -26,9 +26,11 @@ http://cxf.apache.org/blueprint/jaxrs http://cxf.apache.org/schemas/blueprint/ja
     <jaxrs:server id="beerService" address="/shop">
         <jaxrs:serviceBeans>
             <ref component-id="beerSvc"/>
+            <ref component-id="accountSvc"/>
         </jaxrs:serviceBeans>
     </jaxrs:server>
 
     <bean id="beerSvc" class="fr.unice.polytech.soa1.beerShop.BeerService"/>
+    <bean id="accountSvc" class="fr.unice.polytech.soa1.beerShop.AccountService"/>
 
 </blueprint>
