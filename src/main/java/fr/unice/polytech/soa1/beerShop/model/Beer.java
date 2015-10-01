@@ -6,6 +6,10 @@ package fr.unice.polytech.soa1.beerShop.model;
 public class Beer {
     private String name;
 
+    public Beer(){
+
+    }
+
     public Beer(String name) {
         this.name = name;
     }
@@ -16,5 +20,10 @@ public class Beer {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString(){
+        return name;
     }
 }
