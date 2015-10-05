@@ -31,6 +31,6 @@ http://cxf.apache.org/blueprint/jaxrs http://cxf.apache.org/schemas/blueprint/ja
     </jaxrs:server>
 
     <bean id="beerSvc" class="fr.unice.polytech.soa1.beerShop.BeerService"/>
-    <bean id="accountSvc" class="fr.unice.polytech.soa1.beerShop.AccountService"/>
+    <bean id="accountSvc" class="fr.unice.polytech.soa1.beerShop.PublicService"/>
 
 </blueprint>
