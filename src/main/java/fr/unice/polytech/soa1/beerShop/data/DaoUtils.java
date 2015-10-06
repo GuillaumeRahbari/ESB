@@ -30,6 +30,7 @@ public class DaoUtils {
     public static <T,V> HashMap<T,V> readData(String dataFileName, Class<T> keyType, Class<V> valueType) {
 
         //If some data has already bean written on the server.
+        /*
         String storedDataFilePath = "data/appData/beerShop/"+dataFileName;
         File storedData = new File(storedDataFilePath);
         System.out.println("Exists : " + storedData.exists());
@@ -54,7 +55,11 @@ public class DaoUtils {
                 e.printStackTrace();
             }
         }
+        */
 
+
+        String filePath = "data/"+dataFileName;
+        String data = getData(filePath);
 
         System.out.println("Loading " + dataFileName + ":\n\t" + data + "\n");
 
