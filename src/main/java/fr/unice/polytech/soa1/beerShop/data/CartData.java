@@ -13,24 +13,20 @@ public class CartData {
     private static Map<String, Cart> data = DaoUtils.readData("cartData.json", String.class, Cart.class);
 
     public static Cart get(String userId){
-        DaoUtils.writeData("cartData.json", data);
         return data.get(userId);
     }
 
     public static void add(Cart cart){
         data.put(cart.getOwner(),cart);
-        DaoUtils.writeData("cartData.json", data);
     }
 
     public static void update(Cart cart){
         delete(cart);
         data.put(cart.getOwner(), cart);
-        DaoUtils.writeData("cartData.json", data);
     }
 
     public static void delete(Cart cart){
         data.remove(cart.getOwner());
-        DaoUtils.writeData("cartData.json", data);
     }
 
     public static Map<String, Cart> getData() {

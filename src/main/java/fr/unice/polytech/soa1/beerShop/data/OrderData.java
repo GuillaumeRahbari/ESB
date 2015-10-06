@@ -14,34 +14,28 @@ public class OrderData {
     private static Long nextId=new Long(data.size());
 
     public static Order get(Long orderId){
-        DaoUtils.writeData("orderData.json", data);
         return data.get(orderId);
     }
 
     public static void add(Order order){
         order.setId(nextId++);
         data.put(order.getId(),order);
-        DaoUtils.writeData("orderData.json", data);
     }
 
     public static void update(Order order){
         delete(order.getId());
         data.put(order.getId(), order);
-        DaoUtils.writeData("orderData.json", data);
     }
 
     public static void delete(Order order){
         data.remove(order.getId());
-        DaoUtils.writeData("orderData.json", data);
     }
 
     public static void delete(Long orderId){
         data.remove(orderId);
-        DaoUtils.writeData("orderData.json", data);
     }
 
     public static Map<Long, Order> getData() {
-        DaoUtils.writeData("orderData.json", data);
         return data;
     }
 }
