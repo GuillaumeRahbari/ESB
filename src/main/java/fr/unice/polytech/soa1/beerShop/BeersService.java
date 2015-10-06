@@ -1,7 +1,9 @@
 package fr.unice.polytech.soa1.beerShop;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.unice.polytech.soa1.beerShop.data.AccountData;
 import fr.unice.polytech.soa1.beerShop.data.BeerData;
+import fr.unice.polytech.soa1.beerShop.model.Account;
 import fr.unice.polytech.soa1.beerShop.model.Beer;
 import org.json.JSONArray;
 
@@ -53,19 +55,56 @@ public class BeersService {
 
     @POST
     @Path("/new")
-    public Response createBeer(@PathParam("name") String beerName){
+    public Response createBeer(String beerName, @QueryParam("username") String username){
         ObjectMapper mapper = new ObjectMapper();
         //Hardcore logging
-        System.out.println("POST /beers/new --- with " + beerName);
+        System.out.println("POST /beers/new?username=" + username + "--- with " + beerName);
         try {
             Beer beer = mapper.readValue(beerName,Beer.class);
-            BeerData.add(beer);
+            for (Map.Entry<String, Account> entry : AccountData.getData().entrySet()){
+                if (entry.getValue().getUsername().equals(username) && entry.getValue().getUsername().equals(beer.getUser())){
+                    BeerData.add(beer);
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         return  Response.ok().build();
+    }
 
+    @DELETE
+    @Path("/{id}")
+    public Response deleteBeer (@PathParam("id") String beerName, @QueryParam("username") String username){
+        //Hardcore logging
+        System.out.println("DELETE /beers/" + beerName + "?username=" + username);
+
+        for(Map.Entry<String, Beer> entry: BeerData.getData().entrySet()) {
+            if (entry.getValue().getUser().equals(username) && entry.getValue().getName().equals(beerName)){
+                BeerData.delete(entry.getValue());
+            }
+        }
+        return  Response.ok().build();
+    }
+
+    @PUT
+    public Response updateBeer (String beerUpdated, @QueryParam("username") String username) {
+        ObjectMapper mapper = new ObjectMapper();
+        //Hardcore logging
+        System.out.println("PUT /beers/?username=" + username + " --- with " + beerUpdated);
+
+        try {
+            Beer beer = mapper.readValue(beerUpdated,Beer.class);
+            for(Map.Entry<String, Beer> entry: BeerData.getData().entrySet()) {
+                if (entry.getValue().getUser().equals(username) && entry.getValue().getName().equals(beer.getName())){
+                    BeerData.update(beer);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return  Response.ok().build();
     }
 
 }

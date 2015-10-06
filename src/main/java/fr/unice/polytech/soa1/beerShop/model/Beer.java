@@ -6,6 +6,9 @@ package fr.unice.polytech.soa1.beerShop.model;
 public class Beer {
     private String name;
     private String user;
+    private String cereale;
+    private String titration;
+    private String gout;
 
     public Beer(){
 
@@ -14,6 +17,30 @@ public class Beer {
     public Beer(String name, String user) {
         this.name = name;
         this.user = user;
+    }
+
+    public String getCereale() {
+        return cereale;
+    }
+
+    public void setCereale(String cereale) {
+        this.cereale = cereale;
+    }
+
+    public String getTitration() {
+        return titration;
+    }
+
+    public void setTitration(String titration) {
+        this.titration = titration;
+    }
+
+    public String getGout() {
+        return gout;
+    }
+
+    public void setGout(String gout) {
+        this.gout = gout;
     }
 
     public String getName() {

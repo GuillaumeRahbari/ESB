@@ -1,11 +1,16 @@
 package fr.unice.polytech.soa1.beerShop;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.unice.polytech.soa1.beerShop.data.AccountData;
+import fr.unice.polytech.soa1.beerShop.data.BeerData;
 import fr.unice.polytech.soa1.beerShop.model.Account;
+import fr.unice.polytech.soa1.beerShop.model.Beer;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
+import java.util.Map;
 
 /**
  * Created by guillaume on 28/09/2015.
@@ -14,15 +19,21 @@ import javax.ws.rs.core.Response;
 @Produces(MediaType.APPLICATION_JSON)
 public class AccountService {
 
-
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response createNewAccount(String name, String password) {
-
+    public Response createAccount(String account){
+        ObjectMapper mapper = new ObjectMapper();
         //Hardcore logging
-        System.out.println("POST /account/#smthg");
+        System.out.println("POST /account --- with " + account);
+        try {
+            Account account1 = mapper.readValue(account,Account.class);
+            if (!AccountData.getData().containsKey(account1.getUsername())){
+                AccountData.add(account1);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        return Response.ok().build();
+        return  Response.ok().build();
     }
 
 
@@ -32,7 +43,7 @@ public class AccountService {
     public Response getAccount(@PathParam("name") String name, @PathParam("password") String password) {
 
         //Hardcore logging
-        System.out.println("GET /account/{name}/{password} --- with name=" + name + ", password=" + password);
+        System.out.println("GET /account/{"+ name+"}/{"+password+"}");
 
 
         //Map<String,Account> users = AccountData.getData();
@@ -46,17 +57,39 @@ public class AccountService {
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 
-    @GET
-    @Path("/add/{name}/{password}")
-    public Response createAccount(@PathParam("name") String username, @PathParam("password") String password){
-
+    @DELETE
+    @Path("/{id}")
+    public Response deleteAccount (@PathParam("id") String accountName, @QueryParam("username") String username){
         //Hardcore logging
-        System.out.println("GET /account/add/{name}/{password}  --- with name=" + username + ", password=" + password);
+        System.out.println("DELETE /account/" + accountName + "?username=" + username);
 
-        AccountData.add(new Account(username, password));
+        for(Map.Entry<String, Account> entry: AccountData.getData().entrySet()) {
+            if (entry.getValue().getUsername().equals(username) && entry.getValue().getUsername().equals(accountName)){
+                AccountData.delete(entry.getValue());
+            }
+        }
+        return  Response.ok().build();
+    }
+
+    @PUT
+    @Path("/")
+    public Response updateAccount (String accountUpdated, @QueryParam("username") String username) {
+        ObjectMapper mapper = new ObjectMapper();
+        //Hardcore logging
+        System.out.println("PUT /beers/?username=" + username + " --- with " + accountUpdated);
+
+        try {
+            Account account = mapper.readValue(accountUpdated,Account.class);
+            for(Map.Entry<String, Account> entry: AccountData.getData().entrySet()) {
+                if (entry.getValue().getUsername().equals(username) && entry.getValue().getUsername().equals(account.getUsername())){
+                    AccountData.update(account);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return  Response.ok().build();
-
     }
 
 }

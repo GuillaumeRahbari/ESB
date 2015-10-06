@@ -1,11 +1,11 @@
 {   "Hankook":
-        {"name":"Hankook","username":""},
+        {"name":"Hankook","username":"", "cereale" : "houblon", "titration" : "20%", "gout" : "abricot"},
     "Leffe":
-        {"name":"Leffe","username":""},
+        {"name":"Leffe","username":"", "cereale" : "malt", "titration" : "10%", "gout" : "cerise"},
     "GuiBeer":
-        {"name":"GuiBeer","username":""},
+        {"name":"GuiBeer","username":"", "cereale" : "houblon", "titration" : "30%", "gout" : "framboise"},
     "Mort Subite":
-        {"name":"Mort Subite","username":""},
+        {"name":"Mort Subite","username":"", "cereale" : "houblon", "titration" : "20%", "gout" : "chocolat"},
     "YoBeer":
-        {"name":"YoBeer","username":""}
+        {"name":"YoBeer","username":"", "cereale" : "malt", "titration" : "50%", "gout" : "asticot"}
 }
