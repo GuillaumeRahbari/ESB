@@ -6,7 +6,6 @@ import fr.unice.polytech.soa1.beerShop.model.Account;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.*;
 
 /**
  * Created by guillaume on 28/09/2015.

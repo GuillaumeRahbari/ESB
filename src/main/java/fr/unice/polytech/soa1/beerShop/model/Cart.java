@@ -1,6 +1,7 @@
 package fr.unice.polytech.soa1.beerShop.model;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by tom on 05/10/15.
@@ -32,5 +33,14 @@ public class Cart {
 
     public void setCartData(HashMap<String, Float> cartData) {
         this.cartData = cartData;
+    }
+
+    @Override
+    public String toString(){
+        String cart=owner + "'s cart :";
+        for (Map.Entry<String,Float> product : cartData.entrySet()){
+            cart+=("\n\t- " + product.getKey() + " : " + product.getValue() + "L.");
+        }
+        return cart;
     }
 }

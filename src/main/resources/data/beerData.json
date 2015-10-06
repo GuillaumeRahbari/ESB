@@ -1,11 +1,11 @@
 {   "Hankook":
-        {"name":"Hankook"},
+        {"name":"Hankook","username":""},
     "Leffe":
-        {"name":"Leffe"},
+        {"name":"Leffe","username":""},
     "GuiBeer":
-        {"name":"GuiBeer"},
+        {"name":"GuiBeer","username":""},
     "Mort Subite":
-        {"name":"Mort Subite"},
+        {"name":"Mort Subite","username":""},
     "YoBeer":
-        {"name":"YoBeer"}
+        {"name":"YoBeer","username":""}
 }

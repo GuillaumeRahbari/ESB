@@ -44,6 +44,7 @@ public class CartService {
 
         //Hardcore logging
         System.out.println("GET /{userId} with {userId}=" + username + ".");
+        System.out.println("Result : " + CartData.get(username));
 
         JSONArray result = new JSONArray();
         result.put(CartData.get(username));
