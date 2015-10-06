@@ -36,16 +36,6 @@ public class AccountService {
         return  Response.ok().build();
     }
 
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response createNewAccount(String name, String password) {
-
-        //Hardcore logging
-        System.out.println("POST /account/#smthg");
-
-        return Response.ok().build();
-    }
-
 
 
     @Path("/{name}/{password}")
@@ -53,7 +43,7 @@ public class AccountService {
     public Response getAccount(@PathParam("name") String name, @PathParam("password") String password) {
 
         //Hardcore logging
-        System.out.println("GET /account/{name}/{password} --- with name=" + name + ", password=" + password);
+        System.out.println("GET /account/{"+ name+"}/{"+password+"}");
 
 
         //Map<String,Account> users = AccountData.getData();
@@ -67,17 +57,39 @@ public class AccountService {
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 
-    @GET
-    @Path("/add/{name}/{password}")
-    public Response createAccount(@PathParam("name") String username, @PathParam("password") String password){
-
+    @DELETE
+    @Path("/{id}")
+    public Response deleteAccount (@PathParam("id") String accountName, @QueryParam("username") String username){
         //Hardcore logging
-        System.out.println("GET /account/add/{name}/{password}  --- with name=" + username + ", password=" + password);
+        System.out.println("DELETE /account/" + accountName + "?username=" + username);
 
-        AccountData.add(new Account(username, password));
+        for(Map.Entry<String, Account> entry: AccountData.getData().entrySet()) {
+            if (entry.getValue().getUsername().equals(username) && entry.getValue().getUsername().equals(accountName)){
+                AccountData.delete(entry.getValue());
+            }
+        }
+        return  Response.ok().build();
+    }
+
+    @PUT
+    @Path("/")
+    public Response updateAccount (String accountUpdated, @QueryParam("username") String username) {
+        ObjectMapper mapper = new ObjectMapper();
+        //Hardcore logging
+        System.out.println("PUT /beers/?username=" + username + " --- with " + accountUpdated);
+
+        try {
+            Account account = mapper.readValue(accountUpdated,Account.class);
+            for(Map.Entry<String, Account> entry: AccountData.getData().entrySet()) {
+                if (entry.getValue().getUsername().equals(username) && entry.getValue().getUsername().equals(account.getUsername())){
+                    AccountData.update(account);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return  Response.ok().build();
-
     }
 
 }
