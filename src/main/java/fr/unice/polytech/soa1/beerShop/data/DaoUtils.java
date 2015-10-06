@@ -7,6 +7,7 @@ import fr.unice.polytech.soa1.beerShop.model.Beer;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by tom on 29/09/15.
@@ -106,6 +107,4 @@ public class DaoUtils {
         return result.toString();
 
     }
-
-
 }

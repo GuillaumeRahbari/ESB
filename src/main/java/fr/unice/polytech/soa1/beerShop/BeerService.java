@@ -27,7 +27,7 @@ public class BeerService {
     public Response getAllBeers() {
 
         //Hardcore logging
-        System.out.println("GET /beers/all");
+        System.out.println("GET on /beers/all");
 
         JSONArray result = new JSONArray();
         for(Map.Entry<String, Beer> entry: BeerData.getData().entrySet()) {
@@ -43,7 +43,7 @@ public class BeerService {
         //Hardcore logging
         System.out.println("GET /beers/add/{name} --- with name=" + beerName + "");
 
-        BeerData.add(new Beer(beerName));
+        BeerData.add(new Beer(beerName,""));
 
         return  Response.ok().build();
 

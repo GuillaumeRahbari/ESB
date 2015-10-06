@@ -5,13 +5,15 @@ package fr.unice.polytech.soa1.beerShop.model;
  */
 public class Beer {
     private String name;
+    private String user;
 
     public Beer(){
 
     }
 
-    public Beer(String name) {
+    public Beer(String name, String user) {
         this.name = name;
+        this.user = user;
     }
 
     public String getName() {
@@ -20,6 +22,14 @@ public class Beer {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 
     @Override
