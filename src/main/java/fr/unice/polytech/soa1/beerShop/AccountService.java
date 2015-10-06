@@ -75,15 +75,13 @@ public class AccountService {
         //Hardcore logging
         System.out.println("GET /account/{"+ name+"}/{"+password+"}");
 
-
-        //Map<String,Account> users = AccountData.getData();
-        if (AccountData.get(name)!=null){
-            if (AccountData.get(name).getPassword().equals(password)){
-                System.out.println("Logged");
-                return Response.ok().build();
+        JSONArray result = new JSONArray();
+        for(Map.Entry<String, Account> entry: AccountData.getData().entrySet()) {
+            if (entry.getValue().getUsername().equals(name) && entry.getValue().getPassword().equals(password)){
+                result.put(entry);
+                return Response.ok().entity(result.toString(2)).build();
             }
         }
-        System.out.println("Not Logged");
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 
