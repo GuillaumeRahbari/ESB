@@ -88,16 +88,15 @@ public class BeersService {
     }
 
     @PUT
-    @Path("/{id}")
-    public Response updateBeer (@PathParam("id") String beerName, String beerUpdated, @QueryParam("username") String username) {
+    public Response updateBeer (String beerUpdated, @QueryParam("username") String username) {
         ObjectMapper mapper = new ObjectMapper();
         //Hardcore logging
-        System.out.println("PUT /beers/" + beerName + "?username=" + username + " --- with " + beerUpdated);
+        System.out.println("PUT /beers/?username=" + username + " --- with " + beerUpdated);
 
         try {
             Beer beer = mapper.readValue(beerUpdated,Beer.class);
             for(Map.Entry<String, Beer> entry: BeerData.getData().entrySet()) {
-                if (entry.getValue().getUser().equals(username) && entry.getValue().getName().equals(beerName) && entry.getValue().getName().equals(beer.getName())){
+                if (entry.getValue().getUser().equals(username) && entry.getValue().getName().equals(beer.getName())){
                     BeerData.update(beer);
                 }
             }
