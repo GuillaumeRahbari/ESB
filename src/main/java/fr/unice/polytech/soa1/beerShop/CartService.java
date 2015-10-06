@@ -20,7 +20,7 @@ import java.util.Map;
 
 @Path("/cart")
 @Produces(MediaType.APPLICATION_JSON)
-public class CartService {
+public class CartService extends BaseService {
 
 
     @GET

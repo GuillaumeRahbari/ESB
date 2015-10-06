@@ -1,11 +1,13 @@
 package fr.unice.polytech.soa1.beerShop;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.unice.polytech.soa1.beerShop.data.AccountData;
 import fr.unice.polytech.soa1.beerShop.data.BeerData;
 import fr.unice.polytech.soa1.beerShop.model.Account;
 import fr.unice.polytech.soa1.beerShop.model.Beer;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -18,7 +20,7 @@ import java.util.Map;
  */
 @Path("/account")
 @Produces(MediaType.APPLICATION_JSON)
-public class AccountService {
+public class AccountService extends BaseService {
 
     @Path("/all")
     @GET
@@ -36,7 +38,7 @@ public class AccountService {
         JSONArray result = new JSONArray();
         for(Map.Entry<String, Account> entry: AccountData.getData().entrySet()) {
 
-            result.put(entry);
+            result.put(entryToJson(entry));
         }
         return Response.ok().entity(result.toString(2)).build();
     }
@@ -74,7 +76,7 @@ public class AccountService {
         JSONArray result = new JSONArray();
         for(Map.Entry<String, Account> entry: AccountData.getData().entrySet()) {
             if (entry.getValue().getUsername().equals(name) && entry.getValue().getPassword().equals(password)){
-                result.put(entry);
+                result.put(entryToJson(entry));
                 return Response.ok().entity(result.toString(2)).build();
             }
         }
@@ -118,5 +120,7 @@ public class AccountService {
 
         return Response.status(Response.Status.NOT_FOUND).build();
     }
+
+
 
 }

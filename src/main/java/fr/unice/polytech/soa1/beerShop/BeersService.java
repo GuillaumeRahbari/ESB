@@ -21,7 +21,7 @@ import java.util.Map;
 
 @Path("/beers")
 @Produces(MediaType.APPLICATION_JSON)
-public class BeersService {
+public class BeersService extends BaseService{
 
     @GET
     @Path("/all")
