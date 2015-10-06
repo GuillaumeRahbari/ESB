@@ -31,7 +31,7 @@ public class BeersService {
 
         JSONArray result = new JSONArray();
         for(Map.Entry<String, Beer> entry: BeerData.getData().entrySet()) {
-            if (entry.getValue().getUser() == null || entry.getValue().getUser().equals(username)){
+            if (entry.getValue().getUser().equals("") || entry.getValue().getUser().equals(username)){
                 result.put(entry);
             }
         }
@@ -55,7 +55,7 @@ public class BeersService {
 
     @POST
     @Path("/new")
-    public Response createBeer(String beerName, @QueryParam("username") String username){
+    public Response createBeer(String beerName, @DefaultValue("") @QueryParam("username") String username){
         ObjectMapper mapper = new ObjectMapper();
         //Hardcore logging
         System.out.println("POST /beers/new?username=" + username + "--- with " + beerName);
@@ -64,13 +64,15 @@ public class BeersService {
             for (Map.Entry<String, Account> entry : AccountData.getData().entrySet()){
                 if (entry.getValue().getUsername().equals(username) && entry.getValue().getUsername().equals(beer.getUser())){
                     BeerData.add(beer);
+                    return  Response.ok().build();
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
 
-        return  Response.ok().build();
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 
     @DELETE
@@ -82,9 +84,10 @@ public class BeersService {
         for(Map.Entry<String, Beer> entry: BeerData.getData().entrySet()) {
             if (entry.getValue().getUser().equals(username) && entry.getValue().getName().equals(beerName)){
                 BeerData.delete(entry.getValue());
+                return  Response.ok().build();
             }
         }
-        return  Response.ok().build();
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 
     @PUT
@@ -98,13 +101,14 @@ public class BeersService {
             for(Map.Entry<String, Beer> entry: BeerData.getData().entrySet()) {
                 if (entry.getValue().getUser().equals(username) && entry.getValue().getName().equals(beer.getName())){
                     BeerData.update(beer);
+                    return  Response.ok().build();
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
-
-        return  Response.ok().build();
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 
 }
