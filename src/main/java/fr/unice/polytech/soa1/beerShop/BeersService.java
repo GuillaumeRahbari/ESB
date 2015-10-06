@@ -56,7 +56,7 @@ public class BeersService {
     public Response createBeer(@PathParam("name") String beerName){
         ObjectMapper mapper = new ObjectMapper();
         //Hardcore logging
-        System.out.println("GET /beers/add/{name} --- with name=" + beerName + "");
+        System.out.println("POST /beers/new --- with " + beerName);
         try {
             Beer beer = mapper.readValue(beerName,Beer.class);
             BeerData.add(beer);
