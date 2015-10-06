@@ -17,6 +17,11 @@ public class Order {
         this.id = id;
     }
 
+    public Order(Cart cart, String creditCard) {
+        this.cart = cart;
+        this.creditCard = Long.valueOf(creditCard);
+    }
+
     public Cart getCart() {
         return cart;
     }
