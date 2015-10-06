@@ -69,8 +69,15 @@ public class BeersService {
 
     @DELETE
     @Path("/{id}")
-    public Response deleteBeer (@PathParam("id") String beerName){
-        BeerData.delete(beerName);
+    public Response deleteBeer (@PathParam("id") String beerName, @QueryParam("username") String username){
+        //Hardcore logging
+        System.out.println("DELETE /beers/" + beerName + "?username=" + username);
+
+        for(Map.Entry<String, Beer> entry: BeerData.getData().entrySet()) {
+            if (entry.getValue().getUser().equals(username) && entry.getValue().getName().equals(beerName)){
+                BeerData.delete(entry.getValue());
+            }
+        }
         return  Response.ok().build();
     }
 
