@@ -36,11 +36,7 @@ public class AccountService {
         JSONArray result = new JSONArray();
         for(Map.Entry<String, Account> entry: AccountData.getData().entrySet()) {
 
-            try {
-                result.put(mapper.readValue(entry.toString(),Account.class));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            result.put(entry);
         }
         return Response.ok().entity(result.toString(2)).build();
     }
