@@ -1,5 +1,6 @@
 package fr.unice.polytech.soa1.beerShop;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.unice.polytech.soa1.beerShop.data.BeerData;
 import fr.unice.polytech.soa1.beerShop.model.Beer;
 import org.json.JSONArray;
@@ -7,6 +8,7 @@ import org.json.JSONArray;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
@@ -52,11 +54,15 @@ public class BeersService {
     @POST
     @Path("/new")
     public Response createBeer(@PathParam("name") String beerName){
-
+        ObjectMapper mapper = new ObjectMapper();
         //Hardcore logging
         System.out.println("GET /beers/add/{name} --- with name=" + beerName + "");
-
-        BeerData.add(new Beer(beerName));
+        try {
+            Beer beer = mapper.readValue(beerName,Beer.class);
+            BeerData.add(beer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return  Response.ok().build();
 
