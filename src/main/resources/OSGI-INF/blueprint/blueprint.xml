@@ -34,6 +34,5 @@ http://cxf.apache.org/blueprint/jaxrs http://cxf.apache.org/schemas/blueprint/ja
     <bean id="beerSvc" class="fr.unice.polytech.soa1.beerShop.BeersService"/>
     <bean id="accountSvc" class="fr.unice.polytech.soa1.beerShop.AccountService"/>
     <bean id="cartSvc" class="fr.unice.polytech.soa1.beerShop.CartService"/>
-git comm
 
 </blueprint>
