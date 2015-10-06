@@ -1,11 +1,16 @@
 package fr.unice.polytech.soa1.beerShop;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.unice.polytech.soa1.beerShop.data.AccountData;
+import fr.unice.polytech.soa1.beerShop.data.BeerData;
 import fr.unice.polytech.soa1.beerShop.model.Account;
+import fr.unice.polytech.soa1.beerShop.model.Beer;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
+import java.util.Map;
 
 /**
  * Created by guillaume on 28/09/2015.
@@ -14,6 +19,22 @@ import javax.ws.rs.core.Response;
 @Produces(MediaType.APPLICATION_JSON)
 public class AccountService {
 
+    @POST
+    public Response createAccount(String account){
+        ObjectMapper mapper = new ObjectMapper();
+        //Hardcore logging
+        System.out.println("POST /account --- with " + account);
+        try {
+            Account account1 = mapper.readValue(account,Account.class);
+            if (!AccountData.getData().containsKey(account1.getUsername())){
+                AccountData.add(account1);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return  Response.ok().build();
+    }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
