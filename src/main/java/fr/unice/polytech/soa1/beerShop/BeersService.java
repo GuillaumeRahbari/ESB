@@ -55,7 +55,7 @@ public class BeersService {
 
     @POST
     @Path("/new")
-    public Response createBeer(@PathParam("name") String beerName, @QueryParam("username") String username){
+    public Response createBeer(String beerName, @QueryParam("username") String username){
         ObjectMapper mapper = new ObjectMapper();
         //Hardcore logging
         System.out.println("POST /beers/new?username=" + username + "--- with " + beerName);
@@ -89,7 +89,7 @@ public class BeersService {
 
     @PUT
     @Path("/{id}")
-    public Response updateBeer (@PathParam("id") String beerName, @PathParam("newname") String beerUpdated, @QueryParam("username") String username) {
+    public Response updateBeer (@PathParam("id") String beerName, String beerUpdated, @QueryParam("username") String username) {
         ObjectMapper mapper = new ObjectMapper();
         //Hardcore logging
         System.out.println("PUT /beers/" + beerName + "?username=" + username + " --- with " + beerUpdated);
