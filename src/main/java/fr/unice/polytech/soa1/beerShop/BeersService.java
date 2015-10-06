@@ -65,7 +65,13 @@ public class BeersService {
         }
 
         return  Response.ok().build();
+    }
 
+    @DELETE
+    @Path("/{id}")
+    public Response deleteBeer (@PathParam("id") String beerName){
+        BeerData.delete(beerName);
+        return  Response.ok().build();
     }
 
 }

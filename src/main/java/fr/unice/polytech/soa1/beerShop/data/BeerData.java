@@ -34,6 +34,14 @@ public class BeerData {
         //DaoUtils.writeData("beerData.json", data);
     }
 
+    public static void delete (String beerName){
+        for (Map.Entry<String,Beer> entry : data.entrySet()){
+            if (entry.getKey().equals(beerName)){
+                delete(entry.getValue());
+            }
+        }
+    }
+
     public static Map<String, Beer> getData() {
         return data;
     }
