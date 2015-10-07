@@ -1,6 +1,8 @@
 package fr.unice.polytech.soa1.beerShop;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.unice.polytech.soa1.beerShop.data.AccountData;
+import fr.unice.polytech.soa1.beerShop.model.Account;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -24,5 +26,27 @@ public class BaseService {
         obj.put(entry.getKey().toString(),value);
 
         return obj;
+    }
+
+    protected JSONObject convertToJson(Object obj){
+        ObjectMapper mapper = new ObjectMapper();
+
+        JSONObject jsonObj = new JSONObject();
+
+        try {
+            jsonObj = new JSONObject(mapper.writeValueAsString(obj));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return jsonObj;
+    }
+
+    protected Boolean authenticate(String user, String password){
+        for(Map.Entry<String, Account> entry : AccountData.getData().entrySet()){
+            if (entry.getKey().equals(user) && entry.getValue().getPassword().equals(password))
+                return true;
+        }
+        return false;
     }
 }

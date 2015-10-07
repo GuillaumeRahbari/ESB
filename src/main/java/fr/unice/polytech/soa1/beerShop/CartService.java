@@ -39,7 +39,7 @@ public class CartService extends BaseService {
 
         JSONArray result = new JSONArray();
         for(Map.Entry<String, Cart> entry: CartData.getData().entrySet()) {
-            result.put(entry);
+            result.put(entryToJson(entry));
         }
         System.out.println(CartData.getData().size());
         return Response.ok().entity(result.toString(2)).build();
@@ -56,10 +56,13 @@ public class CartService extends BaseService {
         JSONArray result = new JSONArray();
 
         for(Map.Entry<String, Cart> entry: CartData.getData().entrySet()) {
-            if (entry.getValue().getOwner().equals(user)){
-                result.put(entry.getValue());
-                return Response.ok().entity(result.toString(2)).build();
+            if (user.equals("admin") || entry.getValue().getOwner().equals(user)){
+                result.put(convertToJson(entry.getValue()));
+
             }
+        }
+        if(result.length()>0){
+            return Response.ok().entity(result.toString(2)).build();
         }
 
         System.out.println(result);
@@ -93,9 +96,10 @@ public class CartService extends BaseService {
         System.out.println("PUT /cart/validation");
         for(Map.Entry<String, Cart> entry: CartData.getData().entrySet()) {
             if (entry.getValue().getOwner().equals(user)){
-                OrderData.add(new Order(entry.getValue(),cb));
+                Long orderId = OrderData.add(new Order(entry.getValue(),cb));
                 CartData.delete(entry.getValue());
-                return  Response.ok().build();
+                System.out.println(orderId);
+                return  Response.ok().entity(orderId).build();
             }
         }
 

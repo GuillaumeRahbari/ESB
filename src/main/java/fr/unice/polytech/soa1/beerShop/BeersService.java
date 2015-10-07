@@ -32,7 +32,7 @@ public class BeersService extends BaseService{
         JSONArray result = new JSONArray();
         for(Map.Entry<String, Beer> entry: BeerData.getData().entrySet()) {
             if (entry.getValue().getUser().equals("") || entry.getValue().getUser().equals(username)){
-                result.put(entry);
+                result.put(entryToJson(entry));
             }
         }
         return Response.ok().entity(result.toString(2)).build();
@@ -47,10 +47,11 @@ public class BeersService extends BaseService{
         JSONArray result = new JSONArray();
         for(Map.Entry<String, Beer> entry: BeerData.getData().entrySet()) {
             if (entry.getValue().getUser().equals(username) && entry.getValue().getName().equals(beerName)){
-                result.put(entry);
+                result.put(entryToJson(entry));
+                return Response.ok().entity(result.toString(2)).build();
             }
         }
-        return Response.ok().entity(result.toString(2)).build();
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 
     @POST

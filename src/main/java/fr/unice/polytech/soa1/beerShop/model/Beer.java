@@ -9,6 +9,7 @@ public class Beer {
     private String cereale;
     private String titration;
     private String gout;
+    private Float pricePerLiter;
 
     public Beer(){
 
@@ -59,8 +60,11 @@ public class Beer {
         this.user = user;
     }
 
-    @Override
-    public String toString(){
-        return name;
+    public Float getPricePerLiter() {
+        return pricePerLiter;
+    }
+
+    public void setPricePerLiter(Float pricePerLiter) {
+        this.pricePerLiter = pricePerLiter;
     }
 }

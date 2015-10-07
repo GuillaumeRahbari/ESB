@@ -7,6 +7,7 @@ public class Order {
     private Cart cart;
     private Long creditCard;
     private Long id;
+    private Float price;
 
     public Order() {
     }
@@ -44,5 +45,13 @@ public class Order {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
     }
 }
