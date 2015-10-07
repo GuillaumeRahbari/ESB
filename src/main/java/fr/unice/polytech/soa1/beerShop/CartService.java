@@ -46,7 +46,6 @@ public class CartService extends BaseService {
     }
 
     @GET
-    @Path("/all")
     public Response getCart(@QueryParam("username") String user) {
 
         //Hardcore logging
